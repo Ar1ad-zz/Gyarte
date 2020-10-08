@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject[] Tetrimos = new GameObject[3];
 
     public Transform spawnCenter;
     public GameObject test;
@@ -14,6 +17,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Tetrimos = Resources.LoadAll<GameObject>("Prefabs");
+
         spawnCenter = GameObject.Find("SpawnPoint").GetComponent<Transform>();
 
         for (int i = 0; i < 35; i++)
@@ -31,8 +36,9 @@ public class GameController : MonoBehaviour
         if(waitTimer == 0)
         {
             int chosen = Random.Range(0, 35);
-            Instantiate(test, spawnPoints[chosen].transform.position, Quaternion.identity);
-            waitTimer = 100f;
+            int chosenTetri = Random.Range(0, 2);
+            Instantiate(Tetrimos[chosenTetri], spawnPoints[chosen].transform.position, Quaternion.identity);
+            waitTimer = 500f;
             Debug.Log("Boop");
         }
 
